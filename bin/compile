@@ -92,6 +92,13 @@ APT_OPTIONS="-o debug::nolocking=true -o dir::cache=$APT_CACHE_DIR -o dir::state
 print "Updating apt caches"
 apt-get $APT_OPTIONS update | indent
 
+print "AWS cli install"
+curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+unzip awscli-bundle.zip
+./awscli-bundle/install -b ~/bin/aws
+echo $PATH | grep ~/bin
+export PATH=~/bin:$PATH
+
 mkdir -p ${BUILD_DIR}/.apt
 for DEB in $(ls -1 $LD_DIR/lib/*.deb); do
   if [ $STACK == "cedar-14" ] && [ $(basename $DEB) == "libicu52_52.1-3ubuntu0.6_amd64.deb" ]; then
