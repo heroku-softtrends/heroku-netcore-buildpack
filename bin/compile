@@ -135,7 +135,7 @@ export | grep -E -e ' (PATH|LD_LIBRARY_PATH|LIBRARY_PATH|INCLUDE_PATH|CPATH|CPPP
 echo "CORE_BRANCH: ${CORE_BRANCH}"
 echo "CORE_VERSION: ${CORE_VERSION}"
 print "DotNet Core Sdk Package Installation Starts From : ${CORE_DWLD_URL}"
-mkdir -p "${BUILD_DIR}/dotnet"
+mkdir -p "${BUILD_DIR}/vendor/dotnet"
 curl ${CORE_DWLD_URL} -Ls | tar xz -C ${BUILD_DIR}/vendor/dotnet
 ln -s ${BUILD_DIR}/vendor/dotnet ${HOME}
 export PATH=$HOME/vendor/dotnet:$PATH
