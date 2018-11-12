@@ -93,14 +93,28 @@ print "Updating apt caches"
 apt-get $APT_OPTIONS update | indent
 
 print "AWS cli install"
-INSTALL_DIR="/app/awscli"
-mkdir -p ${INSTALL_DIR}
-curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
-unzip awscli-bundle.zip
-./awscli-bundle/install -i ${INSTALL_DIR}
-print "AWS cli installed"
-chmod u+x ${INSTALL_DIR}/bin/aws
-export PATH=~/awscli/bin:$PATH
+AWS_CLI_URL="https://s3.amazonaws.com/aws-cli/awscli-bundle.zip"
+
+print "Fetching AWS CLI into slug"
+curl --progress-bar -o /tmp/awscli-bundle.zip $AWS_CLI_URL
+unzip -qq -d "$BUILD_DIR/vendor" /tmp/awscli-bundle.zip
+
+print "adding installer script into app/.profile.d"
+mkdir -p ${BUILD_DIR}/.profile.d
+cat <<EOF >${BUILD_DIR}/.profile.d/install_awscli.sh
+INSTALL_DIR="/app/vendor/awscli"
+chmod +x /app/vendor/awscli-bundle/install
+/app/vendor/awscli-bundle/install -i $INSTALL_DIR
+chmod u+x $INSTALL_DIR/bin/aws
+
+export PATH=~/vendor/awscli/bin:$PATH
+EOF
+chmod +x $BUILD_DIR/.profile.d/install_awscli.sh
+aws --version
+
+#cleaning up
+rm -rf /tmp/awscli*
+print "aws cli installation done"
 
 PKG_INSTALL_DIR="/app/.apt"
 mkdir -p $PKG_INSTALL_DIR
