@@ -105,7 +105,7 @@ chmod +x /app/vendor/awscli-bundle/install
 chmod u+x /app/vendor/awscli/bin/aws
 
 echo $PATH
-export PATH="/app/vendor/awscli/bin:$PATH"
+#export PATH="/app/vendor/awscli/bin:$PATH"
 EOF
 chmod +x $BUILD_DIR/.profile.d/install_awscli.sh
 
