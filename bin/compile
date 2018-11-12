@@ -99,7 +99,7 @@ unzip awscli-bundle.zip
 print "AWS cli installed"
 /app/bin/aws --version
 export PATH="/app/bin/aws:${PATH}"
-aws --version
+echo ${PATH}
 
 mkdir -p ${BUILD_DIR}/.apt
 for DEB in $(ls -1 $LD_DIR/lib/*.deb); do
