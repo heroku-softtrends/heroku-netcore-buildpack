@@ -96,9 +96,10 @@ print "AWS cli install"
 curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
 unzip awscli-bundle.zip
 ./awscli-bundle/install -b ${HOME}/bin/aws
+print "AWS cli installed"
+/app/bin/aws --version
 echo $PATH | grep ${HOME}/bin
 export PATH=${HOME}:$PATH
-print "AWS cli installed"
 aws --version
 
 mkdir -p ${BUILD_DIR}/.apt
