@@ -139,7 +139,7 @@ print "DotNet Core Sdk Package Installation Starts From : ${CORE_DWLD_URL}"
 mkdir -p "${BUILD_DIR}/vendor/dotnet"
 curl ${CORE_DWLD_URL} -Ls | tar xz -C ${BUILD_DIR}/vendor/dotnet
 ln -s ${BUILD_DIR}/vendor/dotnet ${HOME}
-export PATH=~/vendor/dotnet:$PATH
+export PATH="/app/vendor/dotnet:${PATH}"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
 
 PROJECT_NAME=$(grep -Po '"'"outputName"'"\s*:\s*"\K([^"]*)'  ${PROJECT_JSON_FILE})
