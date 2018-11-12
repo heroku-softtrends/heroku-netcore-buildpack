@@ -104,8 +104,19 @@ chmod +x /app/vendor/awscli-bundle/install
 /app/vendor/awscli-bundle/install -i /app/vendor/awscli
 chmod u+x /app/vendor/awscli/bin/aws
 
-echo $PATH
-#export PATH="/app/vendor/awscli/bin:$PATH"
+mkdir ~/.aws
+cat >> ~/.aws/credentials << EOF
+[default]
+aws_access_key_id = $AWS_CLI_ACCESSKEY
+aws_secret_access_key = $AWS_CLI_SECRETKEY
+EOF
+
+cat >> ~/.aws/config << EOF 
+[default]
+region = $AWS_CLI_REGION
+output = $AWS_CLI_OUTPUT
+EOF
+
 EOF
 chmod +x $BUILD_DIR/.profile.d/install_awscli.sh
 
@@ -137,10 +148,10 @@ export | grep -E -e ' (PATH|LD_LIBRARY_PATH|LIBRARY_PATH|INCLUDE_PATH|CPATH|CPPP
 echo "CORE_BRANCH: ${CORE_BRANCH}"
 echo "CORE_VERSION: ${CORE_VERSION}"
 print "DotNet Core Sdk Package Installation Starts From : ${CORE_DWLD_URL}"
-mkdir -p "${BUILD_DIR}/dotnet"
-curl ${CORE_DWLD_URL} -Ls | tar xz -C ${BUILD_DIR}/dotnet
-ln -s ${BUILD_DIR}/dotnet ${HOME}
-export PATH="$HOME/dotnet:$PATH"
+mkdir -p "${BUILD_DIR}/vendor/dotnet"
+curl ${CORE_DWLD_URL} -Ls | tar xz -C ${BUILD_DIR}/vendor/dotnet
+ln -s ${BUILD_DIR}/vendor/dotnet ${HOME}
+export PATH="$HOME/vendor/dotnet:$PATH"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH"
 
 PROJECT_NAME=$(grep -Po '"'"outputName"'"\s*:\s*"\K([^"]*)'  ${PROJECT_JSON_FILE})
@@ -157,7 +168,7 @@ print "dotnet publish ended."
 print "${PROJECT_NAME}.dll has been created."
 
 cat <<EOF >${BUILD_DIR}/.profile.d/000_apt.sh
-export PATH="$HOME/dotnet:$HOME/vendor/awscli/bin:$HOME/.apt/usr/bin:$PATH"
+export PATH="$HOME/vendor/dotnet:$HOME/vendor/awscli/bin:$HOME/.apt/usr/bin:$PATH"
 export LD_LIBRARY_PATH="$HOME/.apt/usr/lib/x86_64-linux-gnu:$HOME/.apt/usr/lib/i386-linux-gnu:$HOME/.apt/usr/lib:$LD_LIBRARY_PATH"
 export LIBRARY_PATH="$HOME/.apt/usr/lib/x86_64-linux-gnu:$HOME/.apt/usr/lib/i386-linux-gnu:$HOME/.apt/usr/lib:$LIBRARY_PATH"
 export INCLUDE_PATH="$HOME/.apt/usr/include:$INCLUDE_PATH"
