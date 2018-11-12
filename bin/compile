@@ -123,6 +123,7 @@ for DEB in $(ls -1 $LD_DIR/lib/*.deb); do
   print "Installing $(basename $DEB)"
   dpkg -x $DEB ${BUILD_DIR}/.apt/
 done
+ln -s $BUILD_DIR/.apt $HOME/.apt
 
 export PATH="$HOME/.apt/usr/bin:$PATH"
 export LD_LIBRARY_PATH="$HOME/.apt/usr/lib/x86_64-linux-gnu:$HOME/.apt/usr/lib/i386-linux-gnu:$HOME/.apt/usr/lib:$LD_LIBRARY_PATH"
