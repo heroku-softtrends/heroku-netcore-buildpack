@@ -105,16 +105,10 @@ chmod +x /app/vendor/awscli-bundle/install
 chmod u+x /app/vendor/awscli/bin/aws
 
 mkdir -p /app/.aws
-cat <<EOF >/app/.aws/credentials.sh
+cat <<EOF >/app/.aws/credentials
 [default]
 aws_access_key_id = $AWS_CLI_ACCESSKEY
 aws_secret_access_key = $AWS_CLI_SECRETKEY
-EOF
-
-cat <<EOF >/app/.aws/config.sh
-[default]
-region = $AWS_CLI_REGION
-output = $AWS_CLI_OUTPUT
 EOF
 
 EOF
