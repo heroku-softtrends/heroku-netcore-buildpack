@@ -163,6 +163,7 @@ export CPATH=$INCLUDE_PATH
 export CPPPATH=$INCLUDE_PATH
 export PKG_CONFIG_PATH=~/.apt/usr/lib/x86_64-linux-gnu/pkgconfig:~/.apt/usr/lib/i386-linux-gnu/pkgconfig:~/.apt/usr/lib/pkgconfig:$PKG_CONFIG_PATH
 EOF
+chmod +x $BUILD_DIR/.profile.d/000_apt.sh
 
 print "Procfile setting"
 cat <<EOF >${BUILD_DIR}/Procfile
