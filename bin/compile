@@ -98,7 +98,7 @@ unzip awscli-bundle.zip
 ./awscli-bundle/install -b ${HOME}/bin/aws
 print "AWS cli installed"
 /app/bin/aws --version
-echo $PATH | grep ~/bin
+echo ${PATH}
 #export PATH="${HOME}/bin:${PATH}"
 
 mkdir -p ${BUILD_DIR}/.apt
