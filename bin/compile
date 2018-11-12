@@ -105,17 +105,17 @@ chmod +x /app/vendor/awscli-bundle/install
 chmod u+x /app/vendor/awscli/bin/aws
 
 	mkdir -p ~/.aws
-	cat <<EOF >~/.aws/credentials
+	cat <<EOF2 >~/.aws/credentials
 	[default]
 	aws_access_key_id = $AWS_CLI_ACCESSKEY
 	aws_secret_access_key = $AWS_CLI_SECRETKEY
-	EOF
+	EOF2
 	
-	cat <<EOF >~/.aws/config
+	cat <<EOF2 >~/.aws/config
 	[default]
 	region = $AWS_CLI_REGION
 	output = $AWS_CLI_OUTPUT
-	EOF
+	EOF2
 EOF
 chmod +x $BUILD_DIR/.profile.d/install_awscli.sh
 
