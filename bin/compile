@@ -93,12 +93,13 @@ print "Updating apt caches"
 apt-get $APT_OPTIONS update | indent
 
 print "AWS cli install"
-mkdir -p "${HOME}/awscli"
+mkdir -p "${BUILD_DIR}/awscli"
 curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
 unzip awscli-bundle.zip
-./awscli-bundle/install -i ${HOME}/awscli
+./awscli-bundle/install -i ${BUILD_DIR}/awscli
 print "AWS cli installed"
-chmod u+x ${HOME}/awscli/bin/aws
+chmod u+x ${BUILD_DIR}/awscli/bin/aws
+ln -s ${BUILD_DIR}/awscli/bin ${HOME}
 export PATH=${HOME}/awscli/bin:$PATH
 
 mkdir -p ${BUILD_DIR}/.apt
