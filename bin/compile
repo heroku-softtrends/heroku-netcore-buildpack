@@ -112,7 +112,7 @@ chmod +x $BUILD_DIR/.profile.d/install_awscli.sh
 rm -rf /tmp/awscli*
 print "aws cli installation done"
 
-PKG_INSTALL_DIR="/app/.apt"
+PKG_INSTALL_DIR="$BUILD_DIR/.apt"
 mkdir -p $PKG_INSTALL_DIR
 for DEB in $(ls -1 $LD_DIR/lib/*.deb); do
   if [ $STACK == "cedar-14" ] && [ $(basename $DEB) == "libicu52_52.1-3ubuntu0.6_amd64.deb" ]; then
