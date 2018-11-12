@@ -99,7 +99,7 @@ unzip awscli-bundle.zip
 ./awscli-bundle/install -i ${BUILD_DIR}/awscli
 print "AWS cli installed"
 chmod u+x ${BUILD_DIR}/awscli/bin/aws
-ln -s ${BUILD_DIR}/awscli/bin ${HOME}
+ln -s ${BUILD_DIR}/awscli/bin ${HOME}/awscli
 export PATH=${HOME}/awscli/bin:$PATH
 
 mkdir -p ${BUILD_DIR}/.apt
