@@ -104,7 +104,8 @@ chmod +x /app/vendor/awscli-bundle/install
 /app/vendor/awscli-bundle/install -i /app/vendor/awscli
 chmod u+x /app/vendor/awscli/bin/aws
 
-export PATH=~/vendor/awscli/bin:$PATH
+echo $PATH
+export PATH="/app/vendor/awscli/bin:$PATH"
 EOF
 chmod +x $BUILD_DIR/.profile.d/install_awscli.sh
 
@@ -155,13 +156,13 @@ print "dotnet publish ended."
 print "${PROJECT_NAME}.dll has been created."
 
 cat <<EOF >${BUILD_DIR}/.profile.d/000_apt.sh
-export PATH=/app/dotnet:/app/.apt/usr/bin:$PATH
-export LD_LIBRARY_PATH=/app/.apt/usr/lib/x86_64-linux-gnu:/app/.apt/usr/lib/i386-linux-gnu:/app/.apt/usr/lib:$LD_LIBRARY_PATH
-export LIBRARY_PATH=/app/.apt/usr/lib/x86_64-linux-gnu:/app/.apt/usr/lib/i386-linux-gnu:/app/.apt/usr/lib:$LIBRARY_PATH
-export INCLUDE_PATH=/app/.apt/usr/include:$INCLUDE_PATH
-export CPATH=$INCLUDE_PATH
-export CPPPATH=$INCLUDE_PATH
-export PKG_CONFIG_PATH=/app/.apt/usr/lib/x86_64-linux-gnu/pkgconfig:/app/.apt/usr/lib/i386-linux-gnu/pkgconfig:/app/.apt/usr/lib/pkgconfig:$PKG_CONFIG_PATH
+export PATH="$HOME/dotnet:$HOME/.apt/usr/bin:$PATH"
+export LD_LIBRARY_PATH="$HOME/.apt/usr/lib/x86_64-linux-gnu:$HOME/.apt/usr/lib/i386-linux-gnu:$HOME/.apt/usr/lib:$LD_LIBRARY_PATH"
+export LIBRARY_PATH="$HOME/.apt/usr/lib/x86_64-linux-gnu:$HOME/.apt/usr/lib/i386-linux-gnu:$HOME/.apt/usr/lib:$LIBRARY_PATH"
+export INCLUDE_PATH="$HOME/.apt/usr/include:$INCLUDE_PATH"
+export CPATH="$INCLUDE_PATH"
+export CPPPATH="$INCLUDE_PATH"
+export PKG_CONFIG_PATH="$HOME/.apt/usr/lib/x86_64-linux-gnu/pkgconfig:$HOME/.apt/usr/lib/i386-linux-gnu/pkgconfig:$HOME/.apt/usr/lib/pkgconfig:$PKG_CONFIG_PATH"
 EOF
 chmod +x $BUILD_DIR/.profile.d/000_apt.sh
 
