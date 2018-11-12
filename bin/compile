@@ -95,9 +95,10 @@ apt-get $APT_OPTIONS update | indent
 print "AWS cli install"
 curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
 unzip awscli-bundle.zip
-./awscli-bundle/install -b ~/bin/aws
-echo $PATH | grep ~/bin
+./awscli-bundle/install -b ${HOME}/bin/aws
+echo $PATH | grep ${HOME}/bin
 export PATH=${HOME}:$PATH
+print "AWS cli installed"
 aws --version
 
 mkdir -p ${BUILD_DIR}/.apt
