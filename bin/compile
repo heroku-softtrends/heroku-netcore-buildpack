@@ -110,7 +110,6 @@ chmod u+x $INSTALL_DIR/bin/aws
 export PATH=~/vendor/awscli/bin:$PATH
 EOF
 chmod +x $BUILD_DIR/.profile.d/install_awscli.sh
-aws --version
 
 #cleaning up
 rm -rf /tmp/awscli*
