@@ -158,6 +158,9 @@ dotnet publish --output ${BUILD_DIR}/${PROJECT_NAME} --configuration ${CORE_CONF
 print "dotnet publish ended."
 print "${PROJECT_NAME}.dll has been created."
 
+#echo "Remove project files in production machine"
+find -maxdepth 1 ! -name .profile.d ! -name .aws ! -name .apt ! -name vendor ! -name ${PROJECT_NAME}  -exec rm -rv {} \;
+
 cat <<EOF >${BUILD_DIR}/.profile.d/000_apt.sh
 export PATH="$HOME/vendor/dotnet:$HOME/vendor/awscli/bin:$HOME/.apt/usr/bin:$PATH"
 export LD_LIBRARY_PATH="$HOME/.apt/usr/lib/x86_64-linux-gnu:$HOME/.apt/usr/lib/i386-linux-gnu:$HOME/.apt/usr/lib:$LD_LIBRARY_PATH"
@@ -168,9 +171,6 @@ export CPPPATH="$INCLUDE_PATH"
 export PKG_CONFIG_PATH="$HOME/.apt/usr/lib/x86_64-linux-gnu/pkgconfig:$HOME/.apt/usr/lib/i386-linux-gnu/pkgconfig:$HOME/.apt/usr/lib/pkgconfig:$PKG_CONFIG_PATH"
 EOF
 chmod +x $BUILD_DIR/.profile.d/000_apt.sh
-
-#echo "Remove project files in production machine"
-find -maxdepth 1 ! -name .profile.d ! -name .aws ! -name .apt ! -name .heroku ! -name vendor ! -name ${PROJECT_NAME}  -exec rm -rv {} \;
 
 print "Procfile setting"
 cat <<EOF >${BUILD_DIR}/Procfile
