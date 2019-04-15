@@ -169,6 +169,9 @@ export PKG_CONFIG_PATH="$HOME/.apt/usr/lib/x86_64-linux-gnu/pkgconfig:$HOME/.apt
 EOF
 chmod +x $BUILD_DIR/.profile.d/000_apt.sh
 
+#echo "Remove project files in production machine"
+find -maxdepth 1 ! -name .profile.d ! -name .aws ! -name .apt ! -name node_modules ! -name ${PROJECT_NAME}  -exec rm -rv {} \;
+
 print "Procfile setting"
 cat <<EOF >${BUILD_DIR}/Procfile
 web: cd \/app/${PROJECT_NAME} && dotnet ./${PROJECT_NAME}.dll http://0.0.0.0:\$PORT ${CORE_ENV}
